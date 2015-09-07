@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+"""
+"""
+storage = steady
+Precip = annual precipitation displayed in mm/year
+GWin = ground water into system displayed in mm/year
+Q = annual stream discharge in m^3/s
+A = area of watershed
+ET = evapotransiration rate in mm/year
+GWout = ground water leaving the system displayed in mm/year
+
+So how to calculate ET?
+
+▲Storage = (Precip + GWin)-(Q/A+ET+GWout)
+"""
+"""1st call will ask if system is steady or transient"""
+#%%
+print("▲Storage = (Precip + GWin) - (ET(A) + Q + GWout)")
+
+"""Is Storage Steady State"""
+S = raw_input("Is storage steady state? yes or no: ")
+if S == 'yes':
+    S = 0
+    print "Storage is Steady State"
+elif S != 'yes':
+    print ("This wasn't made for transient storages!")
+
+"""Precip"""   
+if S == 0:
+    P = int(raw_input("What is Precipitation (in mm per year)? Integers ONLY! No Units!: "))
+if P >= 0:
+    print('Precipitation is {}{}'.format(P, ' mm/year'))
+ 
+"""Area"""   
+if P >= 0:
+    A = int(raw_input("What is the Area (in km^2)? Integers ONLY! No Units!: "))
+    if A >= 0:
+        A1 = str(A*1000000000000)
+        print('Area is {}{}'.format(A1, ' mm^2'))
+
+"""Discharge"""       
+if A >= 0:
+    Q = int(raw_input("What is the discharge (in m^3 per second)? Integers ONLY! No Units!: "))
+    if Q >= 0:
+        Q1 = str(Q*1000000000*31536000)
+        print('Discharge is {}{}'.format(Q1, ' mm^3/year'))
+
+"""GWin-GWout"""
+if Q >= 0:
+    G = raw_input("Does GWin = GWout? yes or no: ")
+    if G == 'yes':
+        print "GWin - GWout = 0"
+
+"""ET Calculation"""
+if G == 'yes':
+    ET = (P-((Q*1000000000*31536000))/(A*1000000000000))
+    print('Precipitation is {}{}'.format(P, ' mm/year'))
+    print('Area is {}{}'.format(A, ' km^2'))
+    print('Discharge is {}{}'.format(Q, ' m^3/sec'))
+    print('GWin = GWout')
+    print('ET = (P-Q)/A')
+    print('ET is {}{}'.format(ET, ' mm/year'))
+#%%   
